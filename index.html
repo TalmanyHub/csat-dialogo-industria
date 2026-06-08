@@ -1,0 +1,216 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{max-width:380px;margin:0 auto;padding:1rem 0 2rem;font-family:var(--font-sans)}
+.hd{background:#002D72;border-radius:var(--border-radius-lg);padding:1.25rem 1.25rem 1rem;margin-bottom:1.25rem;color:#fff}
+.hd-tag{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#FF6B35;margin-bottom:.35rem;font-weight:500}
+.hd-title{font-size:19px;font-weight:500;color:#fff;line-height:1.3;margin-bottom:.2rem}
+.hd-sub{font-size:12px;color:rgba(255,255,255,.6)}
+.dots{display:flex;gap:6px;margin-bottom:1rem}
+.dot{flex:1;height:3px;border-radius:2px;background:var(--color-border-tertiary);transition:background .3s}
+.dot.on{background:#002D72}
+.dot.done{background:#1D9E75}
+.pg{display:none}
+.pg.active{display:block}
+.card{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:.875rem}
+.sec-lbl{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:.875rem}
+.q-lbl{font-size:14px;color:var(--color-text-primary);margin-bottom:.75rem;line-height:1.5}
+.stars{display:flex;gap:6px;margin-bottom:.25rem}
+.star{font-size:28px;cursor:pointer;color:var(--color-border-secondary);transition:color .15s;line-height:1;user-select:none}
+.star.lit{color:#EF9F27}
+.star-hint{font-size:11px;color:var(--color-text-secondary);min-height:16px;margin-top:2px}
+.divider{height:.5px;background:var(--color-border-tertiary);margin:.875rem 0}
+textarea{width:100%;font-size:13px;padding:9px 12px;border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-family:var(--font-sans);resize:vertical;min-height:72px;line-height:1.5}
+textarea:focus{outline:none;border-color:#002D72}
+.radio-g{display:flex;flex-direction:column;gap:7px}
+.ropt{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);cursor:pointer;font-size:13px;color:var(--color-text-primary);transition:border-color .15s,background .15s;user-select:none}
+.ropt:hover{border-color:var(--color-border-secondary);background:var(--color-background-secondary)}
+.ropt.sel{border-color:#002D72;background:#E6F1FB;color:#042C53}
+.rdot{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--color-border-secondary);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ropt.sel .rdot{border-color:#002D72}
+.rdot-inner{width:7px;height:7px;border-radius:50%;background:#002D72;display:none}
+.ropt.sel .rdot-inner{display:block}
+.nav{display:flex;justify-content:flex-end;gap:8px;margin-top:1.25rem}
+.btn{padding:9px 20px;border-radius:var(--border-radius-md);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-sans);border:.5px solid transparent;transition:all .15s}
+.btn-p{background:#002D72;color:#fff;border-color:#002D72}
+.btn-p:hover{background:#003d9c}
+.btn-s{background:var(--color-background-secondary);color:var(--color-text-secondary);border-color:var(--color-border-tertiary)}
+.btn-s:hover{border-color:var(--color-border-secondary)}
+.sbox{text-align:center;padding:2.5rem 1rem}
+.sbox-icon{font-size:40px;color:#1D9E75;margin-bottom:.875rem}
+.sbox h2{font-size:18px;font-weight:500;margin-bottom:.5rem}
+.sbox p{font-size:13px;color:var(--color-text-secondary);line-height:1.6}
+.prog-bar{height:3px;background:rgba(255,255,255,.2);border-radius:2px;margin-top:.875rem}
+.prog-fill{height:100%;background:#FF6B35;border-radius:2px;transition:width .3s}
+</style>
+
+<h2 style="position:absolute;left:-9999px">Formulário de avaliação CSAT — Diálogo com a Indústria, SENAI Hub Alagoas</h2>
+
+<div class="wrap">
+  <div class="hd">
+    <div class="hd-tag">Avaliação do evento</div>
+    <div class="hd-title">Como foi o Diálogo com a Indústria?</div>
+    <div class="hd-sub">Decarbonização Industrial · Junho 2026</div>
+    <div class="prog-bar"><div class="prog-fill" id="prog" style="width:33%"></div></div>
+  </div>
+
+  <div class="dots">
+    <div class="dot on" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+  </div>
+
+  <div class="pg active" id="pg1">
+    <div class="card">
+      <div class="sec-lbl">Satisfação geral</div>
+      <div class="q-lbl">Como você avalia o evento como um todo?</div>
+      <div class="stars" id="s-geral" data-val="0">
+        <span class="star" onclick="rate('geral',1)">★</span>
+        <span class="star" onclick="rate('geral',2)">★</span>
+        <span class="star" onclick="rate('geral',3)">★</span>
+        <span class="star" onclick="rate('geral',4)">★</span>
+        <span class="star" onclick="rate('geral',5)">★</span>
+      </div>
+      <div class="star-hint" id="h-geral"></div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-p" onclick="go(2)">Próximo →</button>
+    </div>
+  </div>
+
+  <div class="pg" id="pg2">
+    <div class="card">
+      <div class="sec-lbl">Conteúdo</div>
+
+      <div class="q-lbl">A palestra foi relevante para a realidade da sua empresa?</div>
+      <div class="stars" id="s-palestra" data-val="0">
+        <span class="star" onclick="rate('palestra',1)">★</span>
+        <span class="star" onclick="rate('palestra',2)">★</span>
+        <span class="star" onclick="rate('palestra',3)">★</span>
+        <span class="star" onclick="rate('palestra',4)">★</span>
+        <span class="star" onclick="rate('palestra',5)">★</span>
+      </div>
+      <div class="star-hint" id="h-palestra"></div>
+
+      <div class="divider"></div>
+
+      <div class="q-lbl">A Mesa de Diálogo gerou troca de valor entre os participantes?</div>
+      <div class="stars" id="s-mesa" data-val="0">
+        <span class="star" onclick="rate('mesa',1)">★</span>
+        <span class="star" onclick="rate('mesa',2)">★</span>
+        <span class="star" onclick="rate('mesa',3)">★</span>
+        <span class="star" onclick="rate('mesa',4)">★</span>
+        <span class="star" onclick="rate('mesa',5)">★</span>
+      </div>
+      <div class="star-hint" id="h-mesa"></div>
+
+      <div class="divider"></div>
+
+      <div class="q-lbl">Você saiu com algo concreto para aplicar ou aprofundar?</div>
+      <div class="radio-g" id="rg-aplica">
+        <label class="ropt" onclick="sel(this,'aplica','sim')"><div class="rdot"><div class="rdot-inner"></div></div>Sim, saí com ideias ou ações claras</label>
+        <label class="ropt" onclick="sel(this,'aplica','parcial')"><div class="rdot"><div class="rdot-inner"></div></div>Parcialmente — preciso aprofundar</label>
+        <label class="ropt" onclick="sel(this,'aplica','nao')"><div class="rdot"><div class="rdot-inner"></div></div>Não — o conteúdo ainda está distante da minha realidade</label>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-s" onclick="go(1)">← Voltar</button>
+      <button class="btn btn-p" onclick="go(3)">Próximo →</button>
+    </div>
+  </div>
+
+  <div class="pg" id="pg3">
+    <div class="card">
+      <div class="sec-lbl">Organização</div>
+
+      <div class="q-lbl">Como foi a organização e a condução do evento?</div>
+      <div class="stars" id="s-org" data-val="0">
+        <span class="star" onclick="rate('org',1)">★</span>
+        <span class="star" onclick="rate('org',2)">★</span>
+        <span class="star" onclick="rate('org',3)">★</span>
+        <span class="star" onclick="rate('org',4)">★</span>
+        <span class="star" onclick="rate('org',5)">★</span>
+      </div>
+      <div class="star-hint" id="h-org"></div>
+
+      <div class="divider"></div>
+
+      <div class="q-lbl">O que podemos melhorar para a próxima edição?</div>
+      <textarea id="melhoria" placeholder="Sua sugestão é bem-vinda..."></textarea>
+
+      <div class="divider"></div>
+
+      <div class="q-lbl">Você indicaria o Diálogo com a Indústria a outros decisores?</div>
+      <div class="radio-g" id="rg-indica">
+        <label class="ropt" onclick="sel(this,'indica','sim')"><div class="rdot"><div class="rdot-inner"></div></div>Sim, com certeza</label>
+        <label class="ropt" onclick="sel(this,'indica','talvez')"><div class="rdot"><div class="rdot-inner"></div></div>Talvez — depende do tema</label>
+        <label class="ropt" onclick="sel(this,'indica','nao')"><div class="rdot"><div class="rdot-inner"></div></div>Não</label>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-s" onclick="go(2)">← Voltar</button>
+      <button class="btn btn-p" onclick="submit()">Enviar ✓</button>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-ok">
+    <div class="card">
+      <div class="sbox">
+        <div class="sbox-icon"><i class="ti ti-circle-check" aria-hidden="true"></i></div>
+        <h2>Obrigado pela avaliação!</h2>
+        <p>Sua resposta já foi registrada. O Hub analisa cada retorno para melhorar as próximas edições do Diálogo com a Indústria.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const labels=['','Muito insatisfeito','Insatisfeito','Regular','Satisfeito','Muito satisfeito'];
+const state={geral:0,palestra:0,mesa:0,org:0,aplica:'',indica:''};
+
+function rate(id,v){
+  state[id]=v;
+  const stars=document.querySelectorAll('#s-'+id+' .star');
+  stars.forEach((s,i)=>s.classList.toggle('lit',i<v));
+  document.getElementById('h-'+id).textContent=labels[v];
+}
+
+function sel(el,group,val){
+  state[group]=val;
+  document.querySelectorAll('#rg-'+group+' .ropt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function go(n){
+  if(n===2 && !state.geral){alert('Avalie o evento antes de continuar.');return}
+  if(n===3 && (!state.palestra||!state.mesa||!state.aplica)){alert('Preencha todas as avaliações de conteúdo.');return}
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg'+n).classList.add('active');
+  upd(n);
+  window.scrollTo(0,0);
+}
+
+function submit(){
+  if(!state.org){alert('Avalie a organização do evento.');return}
+  if(!state.indica){alert('Responda se indicaria o evento.');return}
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-ok').classList.add('active');
+  document.getElementById('prog').style.width='100%';
+  document.querySelectorAll('.dot').forEach(d=>{d.classList.remove('on');d.classList.add('done')});
+  window.scrollTo(0,0);
+}
+
+function upd(n){
+  const pct=[33,66,100];
+  document.getElementById('prog').style.width=pct[n-1]+'%';
+  for(let i=1;i<=3;i++){
+    const d=document.getElementById('d'+i);
+    d.classList.remove('on','done');
+    if(i<n) d.classList.add('done');
+    else if(i===n) d.classList.add('on');
+  }
+}
+</script>
